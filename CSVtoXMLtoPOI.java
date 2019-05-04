@@ -47,7 +47,7 @@ public class CSVtoXMLtoPOI {
             Workbook wb = new HSSFWorkbook();
 
             try {
-                URL site = new URL("https://bnm.md/en/official_exchange_rates?get_xml=1&date=13.02.2018");
+                URL site = new URL((String) date.get(i));
                 URLConnection connect = site.openConnection();
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder dBuilder;
@@ -59,7 +59,7 @@ public class CSVtoXMLtoPOI {
 
                 XPath xPath = XPathFactory.newInstance().newXPath();
 
-                String expression = "//ValCurs[@Date = " + date.get(i) + "]";
+                String expression = "//ValCurs";
                 NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(
                         doc, XPathConstants.NODESET);
 
