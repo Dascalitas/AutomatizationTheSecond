@@ -18,6 +18,8 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -45,13 +47,14 @@ public class CSVtoXMLtoPOI {
             Workbook wb = new HSSFWorkbook();
 
             try {
-                File inputFile = new File("valute.xml");
+                URL site = new URL("https://bnm.md/en/official_exchange_rates?get_xml=1&date=13.02.2018");
+                URLConnection connect = site.openConnection();
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder dBuilder;
 
                 dBuilder = dbFactory.newDocumentBuilder();
 
-                Document doc = dBuilder.parse(inputFile);
+                Document doc = dBuilder.parse(connect.getInputStream());
                 doc.getDocumentElement().normalize();
 
                 XPath xPath = XPathFactory.newInstance().newXPath();
